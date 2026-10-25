@@ -7,6 +7,7 @@ function ChessStats() {
   const [stats, setStats] = useState(null);       // the stats we got back
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [avatar, setAvatar] = useState("");     // the player's profile picture
 
   function handleSubmit(e) {
     e.preventDefault(); // stop the page from reloading when the form is sent
@@ -17,6 +18,12 @@ function ChessStats() {
     setLoading(true);
     setError("");
     setStats(null);
+    setAvatar("");
+
+    // Get the player's profile (for the picture) at the same time as the stats
+    fetch(`/api/profile/${encodeURIComponent(name)}`)
+      .then(res => (res.ok ? res.json() : {}))
+      .then(profile => setAvatar(profile.avatar || ""));
 
     // Ask the backend through Nginx (/api is forwarded to the backend container)
     fetch(`/api/chess/${encodeURIComponent(name)}`)
@@ -52,11 +59,14 @@ function ChessStats() {
 
       {stats && (
         <div className="results">
-          <h2>{player}</h2>
-          <p><strong>Blitz Rating:</strong> {stats.chess_blitz?.last?.rating ?? "No games"}</p>
-          <p><strong>Rapid Rating:</strong> {stats.chess_rapid?.last?.rating ?? "No games"}</p>
-          <p><strong>Bullet Rating:</strong> {stats.chess_bullet?.last?.rating ?? "No games"}</p>
-          <p><strong>Puzzle Rush Best Score:</strong> {stats.puzzle_rush?.best?.score ?? "Not played"}</p>
+          {avatar && <img className="avatar" src={avatar} alt={`${player}'s avatar`} />}
+          <div>
+            <h2>{player}</h2>
+            <p><strong>Blitz Rating:</strong> {stats.chess_blitz?.last?.rating ?? "No games"}</p>
+            <p><strong>Rapid Rating:</strong> {stats.chess_rapid?.last?.rating ?? "No games"}</p>
+            <p><strong>Bullet Rating:</strong> {stats.chess_bullet?.last?.rating ?? "No games"}</p>
+            <p><strong>Puzzle Rush Best Score:</strong> {stats.puzzle_rush?.best?.score ?? "Not played"}</p>
+          </div>
         </div>
       )}
     </div>
