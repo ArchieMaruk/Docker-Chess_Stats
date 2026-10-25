@@ -71,3 +71,19 @@ p {
 .error {
   color: #ffcdd2;
 }
+
+/* Profile picture on the left, stats on the right */
+.results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  text-align: left;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  object-fit: cover;
+}
