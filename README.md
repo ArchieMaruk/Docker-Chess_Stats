@@ -36,7 +36,25 @@ Then open:
 - **http://localhost:3000** for the website
 - **http://localhost:5000/chess/daddy_gremlin** for the raw JSON from the backend
 
-Stop it with `Ctrl + C`.
+## Stopping and restarting
+
+**To stop the app**, press `Ctrl + C` in the terminal where it is running, then run:
+
+```
+docker compose down
+```
+
+This stops and removes both containers. Your code and the built images stay on your machine.
+
+**To close Docker Desktop**, right-click the Docker whale icon in the system tray and choose **Quit Docker Desktop**. Closing the window with the X only hides it, and Docker keeps running in the background.
+
+**To start it again**, open Docker Desktop, wait for "Engine running", then run this in the project folder:
+
+```
+docker compose up
+```
+
+Add `--build` only when you have changed the code and need the images rebuilt.
 
 ## Project structure
 
