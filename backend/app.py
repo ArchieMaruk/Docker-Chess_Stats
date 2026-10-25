@@ -21,6 +21,17 @@ def chess_stats(username):
 
     return jsonify(data)
 
+@app.route("/profile/<username>")
+def chess_profile(username):
+    url = f"https://api.chess.com/pub/player/{username}"
+    headers = {"User-Agent": "docker-demo-app/1.0"}
+    r = requests.get(url, headers=headers)
+
+    if r.status_code != 200:
+        return jsonify({"error": f"Failed to fetch profile for {username}"}), r.status_code
+
+    return jsonify(r.json())
+
 @app.route("/api")
 def api():
     return jsonify({"message": "Hello from backend"})
