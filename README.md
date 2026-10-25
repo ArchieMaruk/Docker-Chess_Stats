@@ -2,7 +2,7 @@
 
 A full-stack app that shows live Chess.com player stats, built with a Flask backend and a React frontend. Each part runs in its own Docker container, and Docker Compose starts them together with one command.
 
-![Website preview](Assets/Screenshot%202025-10-26%20183125.png)
+![Website preview](Assets/Chess.comAPI.png)
 
 ## How it works
 
